@@ -2,8 +2,6 @@ package sort.quick;
 
 import sort.SortTestHelper;
 
-import java.util.Arrays;
-
 /**
  * Created by LiuLiHao on 2019/5/13 0013 下午 03:04
  * @author : LiuLiHao
@@ -14,10 +12,9 @@ public class QuickSortTest {
     public static void main(String[] args) {
 
         long start = System.currentTimeMillis();
-        int[] arr = SortTestHelper.makeRandomArray(10);
-        QuickSort.quickSort(arr);
+        int[] arr1 = SortTestHelper.makeRepeatArray(50000000,0,5);
+        QuickSort.quickSort(arr1);
         long end = System.currentTimeMillis();
-        System.out.println(Arrays.toString(arr));
         //耗时
         System.out.println((end-start)*1.0/1000+"秒");
     }

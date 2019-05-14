@@ -2,7 +2,6 @@ package sort.quick;
 
 /**
  * Created by LiuLiHao on 2019/5/13 0013 下午 03:03
- *
  * @author : LiuLiHao
  * 描述：快速排序
  */
@@ -36,25 +35,26 @@ public class QuickSort {
      * @return
      */
     private static int partition(int[] arr, int start, int end) {
-        //取第一个元素为参照
+        //随机取一个元素为参照
+        int rand = (int) (Math.random()*(end-start+1) + start);
+        swap(arr,start,rand);
         int temp = arr[start];
         int j = start;
 
         for (int i = start + 1; i <= end; i++) {
             if (arr[i] < temp) {
-                int t = arr[i];
-                arr[i] = arr[j + 1];
-                arr[j + 1] = t;
-
+                swap(arr,i,j+1);
                 j++;
             }
         }
-        int t = arr[start];
-        arr[start] = arr[j];
-        arr[j] = t;
-
+        swap(arr,start,j);
         return j;
     }
 
+    private static void swap(int[] arr,int i,int j){
+        int t = arr[i];
+        arr[i] = arr[j];
+        arr[j] = t;
+    }
 
 }

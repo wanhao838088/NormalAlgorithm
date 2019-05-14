@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.Random;
+
 /**
  * Created by LiuLiHao on 2019/5/13 0013 下午 03:07
  * @author : LiuLiHao
@@ -10,7 +12,7 @@ public class SortTestHelper {
     /**
      * 随机生成数组
      * @param count 数组大小
-     * @return
+     * @return 数组
      */
     public static int[] makeRandomArray(int count){
         int[] arr = new int[count];
@@ -20,5 +22,35 @@ public class SortTestHelper {
         return arr;
     }
 
+    /**
+     * 随机有序数组
+     * @param count 数组大小
+     * @return 数组
+     */
+    public static int[] makeSortArray(int count){
+        int[] arr = new int[count];
+        for (int i = 0; i < count; i++) {
+            arr[i] = i;
+        }
+        return arr;
+    }
+
+
+    /**
+     * 指定范围有序重复数组
+     * 例如 1,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3
+     * @param count 数组大小
+     * @param start 开始范围
+     * @param end 结束范围
+     * @return 数组
+     */
+    public static int[] makeRepeatArray(int count,int start,int end){
+        int[] arr = new int[count];
+        Random random = new Random();
+        for (int i = 0; i < count; i++) {
+            arr[i] = random.nextInt(end-start)+start;
+        }
+        return arr;
+    }
 
 }
