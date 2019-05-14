@@ -2,6 +2,7 @@ package sort.quick;
 
 /**
  * Created by LiuLiHao on 2019/5/13 0013 下午 03:03
+ *
  * @author : LiuLiHao
  * 描述：快速排序
  */
@@ -20,38 +21,35 @@ public class QuickSort {
         if (start >= end) {
             return;
         }
-        //查找对应位置
-        int p = partition(arr, start, end);
-        quickSort(arr, start, p - 1);
-        quickSort(arr, p + 1, end);
-    }
+        int v = arr[start];
 
-    /**
-     * 求得分区位置
-     *
-     * @param arr
-     * @param start
-     * @param end
-     * @return
-     */
-    private static int partition(int[] arr, int start, int end) {
-        //随机取一个元素为参照
-        int rand = (int) (Math.random()*(end-start+1) + start);
-        swap(arr,start,rand);
-        int temp = arr[start];
-        int j = start;
-
-        for (int i = start + 1; i <= end; i++) {
-            if (arr[i] < temp) {
-                swap(arr,i,j+1);
-                j++;
+        //使用3路的方式
+        int lt = start;
+        int gt = end + 1;
+        int i = start + 1;
+        while (i < gt) {
+            if (arr[i] < v) {
+                //元素小于 放到小于的部分
+                swap(arr, i, lt+1);
+                lt++;
+                i++;
+            } else if (arr[i] > v) {
+                //元素大于  放到大于的部分
+                swap(arr, i, gt - 1);
+                gt--;
+            } else {
+                //相等 放到等于的部分
+                i++;
             }
         }
-        swap(arr,start,j);
-        return j;
+        swap(arr, start, lt);
+
+        quickSort(arr, start, lt - 1);
+        quickSort(arr, gt, end);
     }
 
-    private static void swap(int[] arr,int i,int j){
+
+    private static void swap(int[] arr, int i, int j) {
         int t = arr[i];
         arr[i] = arr[j];
         arr[j] = t;
