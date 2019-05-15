@@ -53,4 +53,18 @@ public class SortTestHelper {
         return arr;
     }
 
+    /**
+     * 打乱数组元素顺序
+     * @param arr
+     */
+    public static void shuffleArray(Object[] arr){
+        int n = arr.length;
+        for (int i = 0; i < n; i++) {
+            int j = (int) ((Math.random()*(n-i)))+i;
+            //交换位置
+            Object temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
 }

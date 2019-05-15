@@ -37,6 +37,43 @@ public class MaxHeap<T extends Comparable> {
         shiftUp(count);
     }
 
+    public T get(){
+        if (count<=0){
+            return null;
+        }
+        //取出最大的元素
+        T t = data.get(1);
+
+        //交换位置
+        swap(1,count);
+        count--;
+        shiftDown(1);
+        return t;
+    }
+
+    /**
+     * 保证堆一直为最大堆
+     * @param index
+     */
+    private void shiftDown(int index){
+
+        //左节点 = 当前节点 *2
+        //右节点 = 当前节点 *2 + 1
+        while (index*2 <=count){
+            int j = index*2;
+            //有右节点
+            if (j+1<=count && data.get(j+1).compareTo(data.get(j))>0){
+                j+=1;
+            }
+            //如果父节点比 子节点还大 那么不需要动
+            if (data.get(index).compareTo(data.get(j))>0){
+                break;
+            }
+            swap(index,j);
+            index = j;
+        }
+    }
+
     /**
      * 保持堆为最大堆
      * @param index
@@ -49,6 +86,11 @@ public class MaxHeap<T extends Comparable> {
         }
     }
 
+    /**
+     * 交换元素
+     * @param i
+     * @param j
+     */
     private void swap(int i,int j){
         T temp = data.get(i);
         data.set(i,data.get(j));

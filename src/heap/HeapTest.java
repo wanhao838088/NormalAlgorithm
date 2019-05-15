@@ -10,11 +10,15 @@ public class HeapTest {
     public static void main(String[] args) {
         MaxHeap<Integer> heap = new MaxHeap<>();
 
-        heap.insert(110);
-        heap.insert(200);
-        heap.insert(90);
+        for (int i = 0; i < 100; i++) {
+            heap.insert((int) (Math.random()*100));
+        }
 
-        heap.print();
+        //取出元素
+        while (!heap.isEmpty()){
+            System.out.println(heap.get());
+        }
+
         System.out.println(heap.size());
     }
 }
