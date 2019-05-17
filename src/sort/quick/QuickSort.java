@@ -13,11 +13,11 @@ public class QuickSort {
      *
      * @param arr 数组
      */
-    public static void quickSort(int[] arr) {
+    public static void quickSort(Integer[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
 
-    private static void quickSort(int[] arr, int start, int end) {
+    private static void quickSort(Integer[] arr, int start, int end) {
         if (start >= end) {
             return;
         }
@@ -49,7 +49,7 @@ public class QuickSort {
     }
 
 
-    private static void swap(int[] arr, int i, int j) {
+    private static void swap(Integer[] arr, int i, int j) {
         int t = arr[i];
         arr[i] = arr[j];
         arr[j] = t;

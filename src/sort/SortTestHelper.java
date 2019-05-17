@@ -14,8 +14,8 @@ public class SortTestHelper {
      * @param count 数组大小
      * @return 数组
      */
-    public static int[] makeRandomArray(int count){
-        int[] arr = new int[count];
+    public static Integer[] makeRandomArray(int count){
+        Integer[] arr = new Integer[count];
         for (int i = 0; i < count; i++) {
             arr[i] = (int) (Math.random()*count);
         }
@@ -27,8 +27,8 @@ public class SortTestHelper {
      * @param count 数组大小
      * @return 数组
      */
-    public static int[] makeSortArray(int count){
-        int[] arr = new int[count];
+    public static Integer[] makeSortArray(int count){
+        Integer[] arr = new Integer[count];
         for (int i = 0; i < count; i++) {
             arr[i] = i;
         }
@@ -44,8 +44,8 @@ public class SortTestHelper {
      * @param end 结束范围
      * @return 数组
      */
-    public static int[] makeRepeatArray(int count,int start,int end){
-        int[] arr = new int[count];
+    public static Integer[] makeRepeatArray(int count,int start,int end){
+        Integer[] arr = new Integer[count];
         Random random = new Random();
         for (int i = 0; i < count; i++) {
             arr[i] = random.nextInt(end-start)+start;

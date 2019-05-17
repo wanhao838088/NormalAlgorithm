@@ -14,8 +14,8 @@ public class QuickSortTest {
     public static void main(String[] args) {
 
         long start = System.currentTimeMillis();
-        int[] arr1 = SortTestHelper.makeRandomArray(5000000);
-        int[] arr2 = Arrays.copyOf(arr1, arr1.length);
+        Integer[] arr1 = SortTestHelper.makeRandomArray(5000000);
+        Integer[] arr2 = Arrays.copyOf(arr1, arr1.length);
         QuickSort.quickSort(arr1);
         long end = System.currentTimeMillis();
         //3路排序耗时

@@ -7,11 +7,11 @@ package sort.merge;
  */
 public class MergeSort {
 
-    public static void mergeSort(int[] arr){
+    public static void mergeSort(Integer[] arr){
         mergeSort(arr,0,arr.length-1);
     }
 
-    private static void mergeSort(int[] arr,int left,int right){
+    private static void mergeSort(Integer[] arr,int left,int right){
         if (left>=right){
             return;
         }
@@ -24,7 +24,7 @@ public class MergeSort {
         }
     }
 
-    private static void merge(int[] arr, int left, int mid, int right) {
+    private static void merge(Integer[] arr, int left, int mid, int right) {
         int[] help = new int[right-left+1];
         for (int i = left; i <=right ; i++) {
             help[i-left] = arr[i];

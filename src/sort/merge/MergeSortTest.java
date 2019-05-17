@@ -12,7 +12,7 @@ public class MergeSortTest {
     public static void main(String[] args) {
 
         long start = System.currentTimeMillis();
-        int[] arr = SortTestHelper.makeRandomArray(10000);
+        Integer[] arr = SortTestHelper.makeRandomArray(10000);
         MergeSort.mergeSort(arr);
         long end = System.currentTimeMillis();
         //耗时

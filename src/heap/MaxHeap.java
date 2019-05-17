@@ -28,6 +28,23 @@ public class MaxHeap<T extends Comparable> {
     }
 
     /**
+     * 传入数组 直接构建成堆
+     * @param arr
+     */
+    public MaxHeap(T[] arr){
+        data = new ArrayList<T>();
+        count = arr.length;
+        data.add(null);
+        for (int i = 0; i < arr.length; i++) {
+            data.add(arr[i]);
+        }
+        //转换成堆
+        for (int i = count/2; i >=1 ; i--) {
+            shiftDown(i);
+        }
+    }
+
+    /**
      * 插入元素到堆
      * @param t 元素
      */
