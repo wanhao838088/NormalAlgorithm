@@ -32,4 +32,29 @@ public class BinSearch {
         }
         return -1;
     }
+
+
+    /**
+     * 递归二分查找数组中的元素
+     *
+     * @param arr
+     * @param target
+     * @return
+     */
+    public static int searchBack(int[] arr, int target,int left,int right) {
+        if (left>right){
+            return -1;
+        }
+        //防止溢出
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) {
+            return mid;
+        }
+        //判断在哪一边
+        if (target < arr[mid]) {
+            return searchBack(arr,target,left,mid-1);
+        } else {
+            return searchBack(arr,target,mid+1,right);
+        }
+    }
 }

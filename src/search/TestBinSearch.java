@@ -9,7 +9,7 @@ public class TestBinSearch {
 
     public static void main(String[] args) {
         int[] arr  ={1,2,3,4,5,6,7};
-        int search = BinSearch.search(arr, 55);
+        int search = BinSearch.searchBack(arr, 33,0,arr.length-1);
         System.out.println(search);
     }
 }
