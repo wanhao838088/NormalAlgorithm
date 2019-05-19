@@ -15,15 +15,24 @@ public class TestBinSearchTree {
         tree.insert("2","cccc");
         tree.insert("3","aaaa");
         tree.insert("4","dddd");
-        //前序遍历
-        System.out.println("------前序开始------");
-        tree.preOrder();
-        System.out.println("------中序开始------");
-        tree.inOrder();
-        System.out.println("------后序开始------");
-        tree.postOrder();
-        System.out.println("------广度优先遍历开始------");
-        tree.orderTree();
+
+        //最大最小值
+        System.out.println(tree.max());
+        System.out.println(tree.min());
+
+        //删除最大的
+        tree.removeMax();
+        System.out.println(tree.max());
+
+        //遍历
+//        System.out.println("------前序开始------");
+//        tree.preOrder();
+//        System.out.println("------中序开始------");
+//        tree.inOrder();
+//        System.out.println("------后序开始------");
+//        tree.postOrder();
+//        System.out.println("------广度优先遍历开始------");
+//        tree.orderTree();
 
     }
 }

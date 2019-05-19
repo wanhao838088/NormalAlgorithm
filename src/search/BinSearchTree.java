@@ -44,6 +44,73 @@ public class BinSearchTree<K extends Comparable<K>,V> {
 
 
     /**
+     * 最小的元素
+     * @return
+     */
+    public K min(){
+        return min(root);
+    }
+
+    private K min(Node<K, V> node) {
+        if (node.left==null){
+            return node.key;
+        }
+
+        return min(node.left);
+    }
+
+    /**
+     * 删除最小元素
+     */
+    public void removeMin(){
+        root = removeMin(root);
+    }
+
+    private Node<K, V> removeMin(Node<K, V> node) {
+        if (node.left==null){
+            //删除这个节点
+            Node<K, V> right = node.right;
+            count--;
+            return right;
+        }
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    /**
+     * 删除最大元素
+     */
+    public void removeMax(){
+        root = removeMax(root);
+    }
+
+    private Node<K, V> removeMax(Node<K, V> node) {
+        if (node.right==null){
+            //删除节点
+            Node<K, V> left = node.left;
+            count--;
+            return left;
+        }
+        node.right = removeMax(node.right);
+        return node;
+    }
+
+    /**
+     * 最大元素
+     * @return
+     */
+    public K max(){
+        return max(root);
+    }
+
+    private K max(Node<K, V> node) {
+        if (node.right==null){
+            return node.key;
+        }
+        return max(node.right);
+    }
+
+    /**
      * 是否包含这个key
      * @param k
      * @return
