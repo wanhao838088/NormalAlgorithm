@@ -11,10 +11,10 @@ public class TestBinSearchTree {
 
         BinSearchTree<String, String> tree = new BinSearchTree<>();
 
-        tree.insert("b","bbbb");
-        tree.insert("c","cccc");
-        tree.insert("a","aaaa");
-        tree.insert("d","dddd");
+        tree.insert("1","bbbb");
+        tree.insert("2","cccc");
+        tree.insert("3","aaaa");
+        tree.insert("4","dddd");
         //前序遍历
         System.out.println("------前序开始------");
         tree.preOrder();
@@ -22,5 +22,8 @@ public class TestBinSearchTree {
         tree.inOrder();
         System.out.println("------后序开始------");
         tree.postOrder();
+        System.out.println("------广度优先遍历开始------");
+        tree.orderTree();
+
     }
 }

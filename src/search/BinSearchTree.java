@@ -1,5 +1,7 @@
 package search;
 
+import java.util.LinkedList;
+
 /**
  * Created by LiuLiHao on 2019/5/18 0018 下午 07:22
  * @author : LiuLiHao
@@ -102,6 +104,25 @@ public class BinSearchTree<K extends Comparable<K>,V> {
             node.right = insert(node.right,k,v);
         }
         return node;
+    }
+
+    /**
+     * 广度优先遍历树
+     */
+    public void orderTree(){
+        LinkedList<Node<K, V>> list = new LinkedList<>();
+        list.addFirst(root);
+        while (!list.isEmpty()){
+            Node<K, V> node = list.pop();
+            System.out.println(node.key);
+            //如果有子节点 继续添加遍历
+            if (node.left!=null){
+                list.push(node.left);
+            }
+            if (node.right!=null){
+                list.push(node.right);
+            }
+        }
     }
 
     /**
