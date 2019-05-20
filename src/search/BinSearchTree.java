@@ -23,6 +23,12 @@ public class BinSearchTree<K extends Comparable<K>,V> {
             this.value = value;
             this.left = this.right = null;
         }
+        public Node(Node<K,V> node){
+            this.key = node.key;
+            this.value = node.value;
+            this.left = node.left;
+            this.right = node.right;
+        }
     }
 
     /**
@@ -32,6 +38,7 @@ public class BinSearchTree<K extends Comparable<K>,V> {
         this.count = 0;
         this.root = null;
     }
+
 
     /**
      * 插入元素
@@ -48,15 +55,60 @@ public class BinSearchTree<K extends Comparable<K>,V> {
      * @return
      */
     public K min(){
-        return min(root);
+        Node<K,V> node = min(root);
+        return node.key;
     }
 
-    private K min(Node<K, V> node) {
+    private Node<K,V> min(Node<K, V> node) {
         if (node.left==null){
-            return node.key;
+            return node;
         }
 
         return min(node.left);
+    }
+
+    /**
+     * 删除任意元素
+     * @param k
+     */
+    public void remove(K k){
+        root = remove(root,k);
+    }
+
+    private Node<K, V> remove(Node<K, V> node, K k) {
+        if (node==null){
+            return null;
+        }else if(k.compareTo(node.key)<0){
+            //从左边删除
+            node.left = remove(node.left,k);
+            return node;
+        }else if(k.compareTo(node.key)>0){
+            //从右边删除
+            node.right = remove(node.right,k);
+            return node;
+        }else {
+
+            if (node.left==null){
+                //左边为空
+                Node<K, V> right = node.right;
+                count--;
+                return right;
+            }
+            if (node.right==null){
+                //右边为空
+                Node<K, V> left = node.left;
+                count--;
+                return left;
+            }
+            //选择右边最小的元素为代替节点
+            Node<K, V> min = new Node<>(min(node.right));
+            count++;
+            min.right = removeMin(node);
+            min.left = node.left;
+            node.left = node.right = null;
+            count--;
+            return min;
+        }
     }
 
     /**
@@ -70,6 +122,7 @@ public class BinSearchTree<K extends Comparable<K>,V> {
         if (node.left==null){
             //删除这个节点
             Node<K, V> right = node.right;
+            node.right = null;
             count--;
             return right;
         }
@@ -88,6 +141,7 @@ public class BinSearchTree<K extends Comparable<K>,V> {
         if (node.right==null){
             //删除节点
             Node<K, V> left = node.left;
+            node.left = null;
             count--;
             return left;
         }
@@ -100,12 +154,13 @@ public class BinSearchTree<K extends Comparable<K>,V> {
      * @return
      */
     public K max(){
-        return max(root);
+        Node<K,V> node = max(root);
+        return node.key;
     }
 
-    private K max(Node<K, V> node) {
+    private Node<K,V> max(Node<K, V> node) {
         if (node.right==null){
-            return node.key;
+            return node;
         }
         return max(node.right);
     }
