@@ -5,14 +5,14 @@ package find;
  * @author : LiuLiHao
  * 描述：并查集
  */
-public class UnionFind {
-    private int[] arr;
+public class QuickUnion {
+    private int[] parent;
     int count;
 
 
-    public UnionFind(int count) {
+    public QuickUnion(int count) {
         this.count = count;
-        arr = new int[count];
+        parent = new int[count];
     }
 
     /**
@@ -21,10 +21,14 @@ public class UnionFind {
      * @return
      */
     int find(int position){
-        if (arr.length<position){
-            throw new RuntimeException("下班越界");
+        if (parent.length<position){
+            throw new RuntimeException("下标越界");
         }
-        return arr[position];
+        //查找指向的父元素
+        while (position!=parent[position]){
+            position = parent[position];
+        }
+        return position;
     }
 
     /**
@@ -37,6 +41,11 @@ public class UnionFind {
         return find(p)==find(q);
     }
 
+    /**
+     * 连接元素 把一个元素指向另一个元素的根
+     * @param p
+     * @param q
+     */
     void union(int p,int q){
         int pId = find(p);
         int qId = find(q);
@@ -44,10 +53,6 @@ public class UnionFind {
             return;
         }
         //合并
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i]==pId){
-                arr[i] = qId;
-            }
-        }
+        parent[pId] = qId;
     }
 }
