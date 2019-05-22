@@ -13,6 +13,9 @@ public class QuickUnion {
     public QuickUnion(int count) {
         this.count = count;
         parent = new int[count];
+        for (int i = 0; i < parent.length; i++) {
+            parent[i] = i;
+        }
     }
 
     /**

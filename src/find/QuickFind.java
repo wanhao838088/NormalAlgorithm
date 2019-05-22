@@ -13,6 +13,9 @@ public class QuickFind {
     public QuickFind(int count) {
         this.count = count;
         arr = new int[count];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
     }
 
     /**
