@@ -39,6 +39,8 @@ public class QuickUnion {
         }
         //查找指向的父元素
         while (position!=parent[position]){
+            //路径压缩一下 父节点 = 父节点的父节点
+            parent[position] = parent[parent[position]];
             position = parent[position];
         }
         return position;
@@ -50,7 +52,7 @@ public class QuickUnion {
      * @param q
      * @return
      */
-    boolean isConnnected(int p,int q){
+    boolean isConnected(int p,int q){
         return find(p)==find(q);
     }
 

@@ -10,9 +10,14 @@ public class TestUnion {
     public static void main(String[] args) {
         QuickUnion quickUnion = new QuickUnion(10000);
         quickUnion.union(1,99);
+        quickUnion.union(2,99);
+        quickUnion.union(3,99);
+        quickUnion.union(5,88);
+        quickUnion.union(5,1);
 
-        System.out.println(quickUnion.isConnnected(1,99));
-        System.out.println(quickUnion.isConnnected(1,88));
+
+        System.out.println(quickUnion.isConnected(1,99));
+        System.out.println(quickUnion.isConnected(1,88));
 
     }
 }
