@@ -6,15 +6,25 @@ package find;
  * 描述：并查集
  */
 public class QuickUnion {
+    /**
+     * 存放父节点索引
+     */
     private int[] parent;
-    int count;
+    /**
+     * 每个索引 包含的字节点个数
+     */
+    private int[] size;
+    private int count;
 
 
     public QuickUnion(int count) {
         this.count = count;
         parent = new int[count];
+        size = new int[count];
+
         for (int i = 0; i < parent.length; i++) {
             parent[i] = i;
+            size[i] = 1;
         }
     }
 
@@ -55,7 +65,13 @@ public class QuickUnion {
         if (pId==qId){
             return;
         }
-        //合并
-        parent[pId] = qId;
+        //合并的时候 根据字节点数量比较
+        if (size[pId]<size[qId]){
+            parent[pId] = qId;
+            size[qId]+=size[pId];
+        }else {
+            parent[qId] = pId;
+            size[pId]+=size[qId];
+        }
     }
 }
