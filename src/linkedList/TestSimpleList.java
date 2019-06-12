@@ -20,5 +20,13 @@ public class TestSimpleList {
 
         //查询
         System.out.println(list.get(0));
+        list.addFirst(100);
+
+        System.out.println(list.get(0));
+        //删除一个
+        list.remove(0);
+        System.out.println(list.get(0));
+
+
     }
 }
