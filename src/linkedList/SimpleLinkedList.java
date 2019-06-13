@@ -3,7 +3,7 @@ package linkedList;
 /**
  * Created by LiuLiHao on 2019/6/12 0012 上午 08:15
  * @author : LiuLiHao
- * 描述：
+ * 描述：使用双向链表实现 LinkedList
  */
 public class SimpleLinkedList<T> {
 
@@ -113,6 +113,83 @@ public class SimpleLinkedList<T> {
     }
 
     /**
+     * 查找位置
+     * @param t
+     * @return
+     */
+    public int indexOf(T t){
+        int index = 0;
+        if (t==null){
+            //查找为空的
+            Node<T> node = this.first;
+            while (node!=null){
+                if (node.item==null){
+                    return index;
+                }
+                node = node.next;
+                index++;
+            }
+        }else {
+            Node<T> node = this.first;
+            while (node!=null){
+                if (node.item.equals(t)){
+                    return index;
+                }
+                node = node.next;
+                index++;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 末尾添加
+     * @param t
+     */
+    public void push(T t){
+        addLast(t);
+    }
+
+
+    /**
+     * 弹出首尾元素
+     * @return
+     */
+    public T pop(){
+        return removeFirst();
+    }
+
+    /**
+     * 移除首尾元素
+     * @return
+     */
+    public T removeFirst(){
+        Node<T> f = this.first;
+        if (f==null){
+            throw new RuntimeException("元素为空");
+        }
+        T item = f.item;
+        Node<T> next = f.next;
+        //设置引用为空 gc回收
+        f.item = null;
+        f.next = null;
+
+        //指向下一个元素
+        this.first = next;
+        if (this.first ==null){
+            //整个链表为空了
+            last = null;
+        }else {
+            //上一个元素为空
+            first.prev = null;
+        }
+        size--;
+
+        return item;
+    }
+
+
+    /**
      * 获取首位元素
      * @return
      */
@@ -195,9 +272,26 @@ public class SimpleLinkedList<T> {
         size = 0;
     }
 
+    /**
+     * 转换成数组
+     * @return
+     */
+    public Object[] toArray(){
+        Object[] result = new Object[size];
+        Node<T> node = this.first;
+        int index = 0;
+        while (node!=null){
+            result[index++] = node.item;
+            node = node.next;
+        }
+        return result;
+    }
+
     private static class Node<E> {
         E item;
+        /**链接上一个元素*/
         Node<E> next;
+        /**链接下一个元素*/
         Node<E> prev;
 
         Node(Node<E> prev,E element, Node<E> next) {
