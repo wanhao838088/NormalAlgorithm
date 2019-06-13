@@ -27,6 +27,8 @@ public class TestSimpleList {
         list.remove(0);
         System.out.println(list.get(0));
 
-
+        //清空链表
+        list.clear();
+        System.out.println(list.size());
     }
 }

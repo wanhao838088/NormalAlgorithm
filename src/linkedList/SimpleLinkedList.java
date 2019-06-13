@@ -113,6 +113,30 @@ public class SimpleLinkedList<T> {
     }
 
     /**
+     * 获取首位元素
+     * @return
+     */
+    public T getFirst(){
+        Node<T> node = this.first;
+        if (node==null){
+            throw new RuntimeException("元素不存在");
+        }
+        return node.item;
+    }
+
+    /**
+     * 获取末尾元素
+     * @return
+     */
+    public T getLast(){
+        Node<T> node = this.last;
+        if (node==null){
+            throw new RuntimeException("元素不存在");
+        }
+        return node.item;
+    }
+
+    /**
      * 获取指定位置的node
      * @param index
      * @return
@@ -154,6 +178,22 @@ public class SimpleLinkedList<T> {
         return size;
     }
 
+
+    /**
+     * 清空链表
+     */
+    public void clear(){
+        Node<T> node = this.first;
+        while (node!=null){
+            Node<T> next = node.next;
+            node.item = null;
+            node.prev = null;
+            node.next = null;
+            node = next;
+        }
+        first = last = null;
+        size = 0;
+    }
 
     private static class Node<E> {
         E item;
