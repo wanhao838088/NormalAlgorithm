@@ -17,11 +17,14 @@ public class HuffmanCode {
 
         String str = "i like like like java do you like a java";
         byte[] bytes = str.getBytes();
-        System.out.println(Arrays.toString(zip(bytes)));
+        //System.out.println(Arrays.toString(zip(bytes)));
+        byte[] zip = zip(bytes);
+        byte[] unZip = unZip(zip);
+        System.out.println(new String(unZip));
     }
 
     /**
-     * 压缩
+     * 封装后的压缩方法
      * @param org
      * @return
      */
@@ -30,6 +33,77 @@ public class HuffmanCode {
         Node huffmanTree = getHuffmanTree(nodes);
         getCodes(huffmanTree);
         return zipData(org);
+    }
+
+    /**
+     * 根据给的压缩数据 进行解压
+     * @param zips 压缩的byte数据
+     */
+    private static byte[] unZip(byte[] zips){
+        //先把数组转成 二进制的字符串
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < zips.length; i++) {
+            if (i==zips.length-1){
+                //最后一个字节不需要补位
+                sb.append(byte2BitString(false,zips[i]));
+            }else {
+                sb.append(byte2BitString(true,zips[i]));
+            }
+        }
+        //查询字典 把二进制字符串转成 byte数组
+        HashMap<String, Byte> curMap = new HashMap<>();
+
+        for (Map.Entry<Byte, String> entry : dict.entrySet()) {
+            curMap.put(entry.getValue(),entry.getKey());
+        }
+
+        List<Byte> list = new LinkedList<>();
+
+        for (int i = 0; i < sb.length(); ) {
+            int count = 1;
+            boolean flag =true;
+            while (flag){
+                String sub = sb.substring(i, i + count);
+                //查找字典
+                Byte aByte = curMap.get(sub);
+                if (aByte==null){
+                    count++;
+                }else {
+                    //找到了
+                    list.add(aByte);
+                    flag = false;
+                }
+            }
+            i+=count;
+        }
+        //构成字节数组
+        byte[] bys = new byte[list.size()];
+        for (int i = 0; i < bys.length; i++) {
+            bys[i] = list.get(i);
+        }
+        return bys;
+    }
+
+    /**
+     * 把byte变成 8位字符串
+     * @param flag 是否需要补位
+     * @param b
+     * @return
+     */
+    private static String byte2BitString(boolean flag,byte b){
+        int temp = b;
+        if (flag){
+            //补位
+            temp|=256;
+        }
+
+        String s = Integer.toBinaryString(temp);
+
+        if (!flag){
+            return s;
+        }
+        //返回末尾8位
+        return s.substring(s.length()-8);
     }
 
     /**
