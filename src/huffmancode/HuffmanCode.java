@@ -1,5 +1,6 @@
 package huffmancode;
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -17,11 +18,11 @@ public class HuffmanCode {
 
         String str = "i like like like java do you like a java";
         byte[] bytes = str.getBytes();
-        //System.out.println(Arrays.toString(zip(bytes)));
         byte[] zip = zip(bytes);
         byte[] unZip = unZip(zip);
         System.out.println(new String(unZip));
     }
+
 
     /**
      * 封装后的压缩方法
@@ -33,6 +34,85 @@ public class HuffmanCode {
         Node huffmanTree = getHuffmanTree(nodes);
         getCodes(huffmanTree);
         return zipData(org);
+    }
+
+    /**
+     * 解压文件
+     * @param fileName
+     * @param outFileName
+     */
+    public static void unZipFile(String fileName,String outFileName){
+
+        //读取文件
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        FileOutputStream fos = null;
+
+        try {
+            fis = new FileInputStream(fileName);
+            ois=  new ObjectInputStream(fis);
+            fos = new FileOutputStream(outFileName);
+            //读取内容
+            byte[] zipData = (byte[]) ois.readObject();
+            dict = (Map<Byte, String>) ois.readObject();
+            //映射字典
+
+            byte[] bytes = unZip(zipData);
+            //写出文件
+            fos.write(bytes);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            close(ois);
+            close(fis);
+            close(fos);
+        }
+    }
+
+    /**
+     * 压缩一个文件
+     */
+    public static void zipFile(String fileName,String outFileName){
+        //读取文件
+        byte[] zipData = null;
+        ObjectOutputStream oos = null;
+        FileInputStream fis = null;
+        FileOutputStream fos = null;
+
+        try {
+            fis = new FileInputStream(fileName);
+            byte[] bys = new byte[fis.available()];
+            fis.read(bys);
+
+            //获取哈夫曼编码数据
+            zipData = zip(bys);
+            //写出到文件
+            fos = new FileOutputStream(outFileName);
+            oos = new ObjectOutputStream(fos);
+            //写出压缩数据
+            oos.writeObject(zipData);
+            //写出编码表
+            oos.writeObject(dict);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close(fis);
+            close(oos);
+            close(fos);
+        }
+    }
+
+    /**
+     * 关闭流
+     * @param closeable
+     */
+    private static void close(Closeable closeable){
+        try {
+            closeable.close();
+        } catch (IOException e) {
+            closeable = null;
+        }
     }
 
     /**
@@ -62,18 +142,23 @@ public class HuffmanCode {
         for (int i = 0; i < sb.length(); ) {
             int count = 1;
             boolean flag =true;
-            while (flag){
-                String sub = sb.substring(i, i + count);
-                //查找字典
-                Byte aByte = curMap.get(sub);
-                if (aByte==null){
-                    count++;
+            Byte b = null;
+            while (flag ){
+                if (i+count<=sb.length()) {
+                    String sub = sb.substring(i, i + count);
+                    //查找字典
+                    b = curMap.get(sub);
+                    if (b == null) {
+                        count++;
+                    } else {
+                        //找到了
+                        flag = false;
+                    }
                 }else {
-                    //找到了
-                    list.add(aByte);
-                    flag = false;
+                    break;
                 }
             }
+            list.add(b);
             i+=count;
         }
         //构成字节数组
