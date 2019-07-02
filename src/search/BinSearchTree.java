@@ -103,7 +103,7 @@ public class BinSearchTree<K extends Comparable<K>,V> {
             //选择右边最小的元素为代替节点
             Node<K, V> min = new Node<>(min(node.right));
             count++;
-            min.right = removeMin(node);
+            min.right = removeMin(node.right);
             min.left = node.left;
             node.left = node.right = null;
             count--;
