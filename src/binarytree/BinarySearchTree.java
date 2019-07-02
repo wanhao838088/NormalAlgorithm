@@ -27,6 +27,12 @@ public class BinarySearchTree {
             this.val = val;
         }
 
+        public Node(Node node) {
+            this.val = node.val;
+            this.left = node.left;
+            this.right = node.right;
+        }
+
         /**
          * 添加
          * @param node
@@ -72,6 +78,102 @@ public class BinarySearchTree {
         }
     }
 
+    /**
+     * 加入元素
+     * @param node
+     */
+    public void insert(Node node){
+        this.root = insert(root,node);
+        size++;
+    }
+
+    private Node insert(Node root, Node node) {
+        //直接赋值给根元素
+        if (root==null){
+            return node;
+        }
+
+        if (node.val<root.val){
+            //继续往左
+            root.left = insert(root.left,node);
+        }else {
+            //放到右边
+            root.right = insert(root.right,node);
+        }
+        return root;
+    }
+
+    /**
+     * 移除
+     * @param node
+     */
+    public void remove(Node node){
+        if (root!=null){
+            remove(root,node);
+        }
+    }
+
+    /**
+     * 移除最小的
+     */
+    public void removeMin(){
+        root = removeMin(root);
+    }
+
+    public Node removeMin(Node node){
+        if (node.left==null){
+            //把右节点赋值给当前 如果没有 也没事
+            Node right = node.right;
+            right = null;
+
+            size--;
+            return right;
+        }
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    /**
+     * 移除
+     * @param root
+     * @param node
+     */
+    private Node remove(Node root, Node node) {
+        if (root==null){
+            return null;
+        }
+        if (node.val<root.val){
+            //往左删除
+            root.left = remove(root.left,node);
+            return root;
+        }else if (node.val>root.val){
+            //往右删除
+            root.right = remove(root.right,node);
+            return root;
+        }else {
+            //进行删除
+            if (root.left==null){
+                //把右节点赋值过来
+                Node right = root.right;
+                size--;
+                return right;
+            }else if(root.right==null){
+                //把左节点赋值过来
+                Node left = root.left;
+                size--;
+                return left;
+            }
+            //获取右边最小的元素
+            Node temp = new Node(min(root.right));
+            size++;
+            temp.right = removeMin(root.right);
+            temp.left = root.left;
+            //置空
+            root.left = root.right = null;
+            size--;
+            return temp;
+        }
+    }
 
     /**
      * 最小元素
@@ -158,6 +260,27 @@ public class BinarySearchTree {
         }
     }
 
+    /**
+     * 中序遍历2
+     */
+    public void inOrder(){
+        if (root!=null){
+            inOrder(root);
+        }
+    }
 
+    /**
+     * 中序遍历2
+     * @param root
+     */
+    private void inOrder(Node root) {
+        if (root.left!=null){
+            inOrder(root.left);
+        }
+        System.out.println(root);
+        if (root.right!=null){
+            inOrder(root.right);
+        }
+    }
 
 }

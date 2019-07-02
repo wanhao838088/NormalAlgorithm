@@ -42,4 +42,40 @@ public class TestTree {
         System.out.println(tree.min());
         System.out.println(tree.max());
     }
+
+    @Test
+    public void testInsert(){
+        BinarySearchTree tree = new BinarySearchTree();
+
+        int[] arr = {7, 3, 10, 12, 5, 1, 9, 2};
+        for (int i : arr) {
+            BinarySearchTree.Node node = new BinarySearchTree.Node(i);
+            tree.insert(node);
+        }
+
+        tree.inOrder();
+        System.out.println(tree.size());
+    }
+
+    /**
+     * 测试删除
+     */
+    @Test
+    public void testRemove(){
+        BinarySearchTree tree = new BinarySearchTree();
+
+        int[] arr = {10, 5, 20, 2, 6, 18, 30,3,28,40};
+        for (int i : arr) {
+            BinarySearchTree.Node node = new BinarySearchTree.Node(i);
+            tree.insert(node);
+        }
+        tree.inOrder();
+
+        BinarySearchTree.Node node = new BinarySearchTree.Node(20);
+
+        //删除10
+        tree.remove(node);
+        System.out.println("删除后");
+        tree.inOrder();
+    }
 }
