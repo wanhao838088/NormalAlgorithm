@@ -11,6 +11,11 @@ public class BinarySearchTree {
      */
     Node root = null;
     /**
+     * 节点个数
+     */
+    private int size = 0;
+
+    /**
      * 节点元素
      */
     static class Node{
@@ -69,6 +74,53 @@ public class BinarySearchTree {
 
 
     /**
+     * 最小元素
+     * @return
+     */
+    public Node min(){
+        if (root!=null){
+            return min(root);
+        }else {
+            return null;
+        }
+    }
+
+    /**
+     * 最小元素
+     * @return
+     */
+    public Node min(Node root){
+        if (root.left==null){
+            return root;
+        }else {
+            return min(root.left);
+        }
+    }
+
+    /**
+     * 最大元素
+     * @return
+     */
+    public Node max(){
+        if (root!=null){
+            return max(root);
+        }else {
+            return null;
+        }
+    }
+
+    /**
+     * 最大元素
+     * @return
+     */
+    public Node max(Node root){
+        if (root.right==null){
+            return root;
+        }else {
+            return max(root.right);
+        }
+    }
+    /**
      * 添加
      * @param node
      */
@@ -78,6 +130,23 @@ public class BinarySearchTree {
         }else {
             root.add(node);
         }
+        size++;
+    }
+
+    /**
+     * 个数
+     * @return
+     */
+    public int size(){
+        return size;
+    }
+
+    /**
+     * 是否为空
+     * @return
+     */
+    public boolean isEmpty(){
+        return size==0;
     }
 
     /**
