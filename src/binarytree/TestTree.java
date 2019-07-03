@@ -78,4 +78,26 @@ public class TestTree {
         System.out.println("删除后");
         tree.inOrder();
     }
+
+    /**
+     * 测试树高度
+     */
+    @Test
+    public void testHeight(){
+        BinarySearchTree tree = new BinarySearchTree();
+
+        //4,3,6,5,7,8
+        int[] arr = {4,3,6,5,7,8};
+        for (int i : arr) {
+            BinarySearchTree.Node node = new BinarySearchTree.Node(i);
+            tree.insert(node);
+        }
+        //总高度
+        System.out.println(tree.height());
+        //左树高度
+        System.out.println(tree.leftHeight());
+        //右树高度
+        System.out.println(tree.rightHeight());
+
+    }
 }

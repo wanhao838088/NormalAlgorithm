@@ -79,6 +79,43 @@ public class BinarySearchTree {
     }
 
     /**
+     * 整颗二叉树高度
+     * @return
+     */
+    public int height(){
+        return height(root);
+    }
+
+    /**
+     * 左二叉树高度
+     * @return
+     */
+    public int leftHeight(){
+        if (root!=null && root.left!=null){
+            return height(root.left);
+        }
+        return 0;
+    }
+    /**
+     * 右二叉树高度
+     * @return
+     */
+    public int rightHeight(){
+        if (root!=null && root.right!=null){
+            return height(root.right);
+        }
+        return 0;
+    }
+    /**
+     * 二叉树高度
+     * @return
+     */
+    private int height(Node node){
+        return Math.max(node.left==null?0:height(node.left),
+                node.right==null?0:height(node.right))+1;
+    }
+
+    /**
      * 加入元素
      * @param node
      */
