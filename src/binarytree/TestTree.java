@@ -100,4 +100,65 @@ public class TestTree {
         System.out.println(tree.rightHeight());
 
     }
+
+
+    /**
+     * 测试旋转
+     */
+    @Test
+    public void testRotateLeft(){
+        int[] arr = {4,3,6,5,7,8};
+        BinarySearchTree tree = new BinarySearchTree();
+        for (int i : arr) {
+            BinarySearchTree.Node node = new BinarySearchTree.Node(i);
+            tree.insert(node);
+        }
+        //总高度  应该为3
+        System.out.println(tree.height());
+        //左树高度 应该为2
+        System.out.println(tree.leftHeight());
+        //右树高度 应该为2
+        System.out.println(tree.rightHeight());
+    }
+
+
+    /**
+     * 测试旋转
+     */
+    @Test
+    public void testRotateRight(){
+        int[] arr = {10,12, 8, 9, 7, 6};
+        BinarySearchTree tree = new BinarySearchTree();
+        for (int i : arr) {
+            BinarySearchTree.Node node = new BinarySearchTree.Node(i);
+            tree.insert(node);
+        }
+        //总高度  应该为3
+        System.out.println(tree.height());
+        //左树高度 应该为2
+        System.out.println(tree.leftHeight());
+        //右树高度 应该为2
+        System.out.println(tree.rightHeight());
+        System.out.println("根结点 ： "+ tree.root.val);
+    }
+
+    /**
+     * 测试双旋转
+     */
+    @Test
+    public void testRotateBoth(){
+        int[] arr = {10, 11, 7, 6, 8, 9 };
+        BinarySearchTree tree = new BinarySearchTree();
+        for (int i : arr) {
+            BinarySearchTree.Node node = new BinarySearchTree.Node(i);
+            tree.insert(node);
+        }
+        //总高度  应该为3
+        System.out.println(tree.height());
+        //左树高度 应该为2
+        System.out.println(tree.leftHeight());
+        //右树高度 应该为2
+        System.out.println(tree.rightHeight());
+        System.out.println("根结点 ： "+ tree.root.val);
+    }
 }

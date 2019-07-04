@@ -16,6 +16,28 @@ public class BinarySearchTree {
     private int size = 0;
 
     /**
+     * 在外部对结点进行左旋转
+     */
+    public void rotateLeft(Node current){
+        Node newNode = new Node(current.val);
+        newNode.left = current.left;
+        newNode.right = current.right.left;
+        current.val = current.right.val;
+        current.right = current.right.right;
+        current.left = newNode;
+    }
+    /**
+     * 在外部对结点进行右旋转
+     */
+    public void rotateRight(Node current){
+        Node newNode = new Node(current.val);
+        newNode.right = current.right;
+        newNode.left = current.left.right;
+        current.val = current.left.val;
+        current.left = current.left.left;
+        current.right = newNode;
+    }
+    /**
      * 节点元素
      */
     static class Node{
@@ -70,6 +92,7 @@ public class BinarySearchTree {
                 this.right.midOrder();
             }
         }
+
         @Override
         public String toString() {
             return "Node{" +
@@ -97,12 +120,37 @@ public class BinarySearchTree {
         return 0;
     }
     /**
+     * 指定元素左二叉树高度
+     * @return
+     */
+    public int leftHeight(Node node){
+        if (node==null){
+            return 0;
+        }else if(node.left!=null){
+            return height(node.left);
+        }
+        return 0;
+    }
+    /**
      * 右二叉树高度
      * @return
      */
     public int rightHeight(){
         if (root!=null && root.right!=null){
             return height(root.right);
+        }
+        return 0;
+    }
+
+    /**
+     * 指定元素右二叉树高度
+     * @return
+     */
+    public int rightHeight(Node node){
+        if (node==null){
+            return 0;
+        }else if(node.right!=null){
+            return height(node.right);
         }
         return 0;
     }
@@ -121,6 +169,33 @@ public class BinarySearchTree {
      */
     public void insert(Node node){
         this.root = insert(root,node);
+        //判断是否平衡
+        if (rightHeight()-leftHeight()>1){
+            //需要左旋
+            if(root.right != null && leftHeight(root.right) > rightHeight(root.right) ) {
+                //先对右子结点进行右旋转
+                rotateRight(root.right);
+                //然后在对当前结点进行左旋转
+                rotateLeft(root);
+            } else {
+                //直接进行左旋转即可
+                rotateLeft(root);
+            }
+            return;
+        }
+        if (leftHeight()-rightHeight()>1){
+            //需要右旋
+            if(root.left != null && rightHeight(root.left) > leftHeight(root.left)) {
+                //先对当前结点的左结点(左子树)->左旋转
+                rotateLeft(root.left);
+                //再对当前结点进行右旋转
+                rotateRight(root);
+            } else {
+                //直接进行右旋转即可
+                rotateRight(root);
+            }
+        }
+
         size++;
     }
 
