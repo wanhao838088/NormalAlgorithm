@@ -56,30 +56,6 @@ public class BinarySearchTree {
         }
 
         /**
-         * 添加
-         * @param node
-         */
-        public void add(Node node){
-            if (node==null){
-                return;
-            }else if (node.val<this.val){
-                //加到左边
-                if (this.left==null){
-                    this.left = node;
-                }else {
-                    this.left.add(node);
-                }
-            }else if(node.val>val){
-                //加到右边
-                if (this.right==null){
-                    this.right = node;
-                }else {
-                    this.right.add(node);
-                }
-            }
-        }
-
-        /**
          * 中序遍历
          */
         public void midOrder(){
@@ -333,18 +309,6 @@ public class BinarySearchTree {
         }else {
             return max(root.right);
         }
-    }
-    /**
-     * 添加
-     * @param node
-     */
-    public void add(Node node){
-        if (root==null){
-            root = node;
-        }else {
-            root.add(node);
-        }
-        size++;
     }
 
     /**
