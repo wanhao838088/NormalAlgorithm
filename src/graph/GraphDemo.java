@@ -1,8 +1,6 @@
 package graph;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by LiuLiHao on 2019/7/5 0005 下午 10:14
@@ -23,11 +21,111 @@ public class GraphDemo {
      */
     private List<String> points ;
 
+    /**
+     * 点是否被访问过
+     */
+    private boolean[] visited;
+
     public GraphDemo(int n) {
         edges = new int[n][n];
+        visited = new boolean[n];
         points = new ArrayList<>(n);
     }
 
+    /**
+     * 深度优先遍历
+     */
+    public void dfs(){
+        //对每个点进行分别遍历
+        for (int i = 0; i < points.size(); i++) {
+            if(!visited[i]){
+                dfs(visited,i);
+            }
+        }
+    }
+
+    /**
+     * 光度优先遍历
+     */
+    public void bfs(){
+        //对每个点进行分别遍历
+        for (int i = 0; i < points.size(); i++) {
+            if(!visited[i]){
+                bfs(visited,i);
+            }
+        }
+    }
+
+
+    private void bfs(boolean[] visited, int i) {
+        //当前下标
+        int cur ,w;
+        Queue<Integer> queue =new LinkedList<>();
+        System.out.print(points.get(i)+"->");
+
+        visited[i] = true;
+        queue.add(i);
+
+        while (!queue.isEmpty()){
+            cur = queue.poll();
+
+            w = getNeighbor(cur);
+
+            while (w!=-1){
+                //没有被访问
+                if (!visited[cur]){
+                    System.out.print(points.get(w)+"->");
+                    queue.add(w);
+                    visited[w] = true;
+                }
+                w = getNextNeighbor(i,w);
+            }
+
+        }
+    }
+
+    private void dfs(boolean[] visited, int i) {
+        System.out.print(points.get(i) + "->");
+        //已访问
+        visited[i] = true;
+        int w = getNeighbor(i);
+        while (w!=-1){
+            //并且没有被访问过
+            if(!visited[w]){
+                dfs(visited,w);
+            }
+            //移动点
+            w = getNextNeighbor(i,w);
+        }
+    }
+
+    /**
+     * 获取下一个临接点
+     * @param i
+     * @return
+     */
+    private int getNeighbor(int i){
+        for (int j = 0; j < points.size(); j++) {
+            if(edges[i][j]>0){
+                return j;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 获取下一个的下一个临接点
+     * @param i
+     * @return
+     */
+    private int getNextNeighbor(int i,int j){
+        for (int k = j+1; k < points.size(); k++) {
+            if(edges[i][k]>0){
+                return k;
+            }
+        }
+        return -1;
+    }
     /**
      * 点的个数
      * @return

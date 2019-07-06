@@ -26,4 +26,23 @@ public class GraphTest {
         graph.addEdge(1, 4, 1);
         graph.showGraph();
     }
+
+    @Test
+    public void testDfs(){
+        GraphDemo graph = new GraphDemo(5);
+        String[] points = {"A","B","C","D","E"};
+        for (String point : points) {
+            graph.addPoint(point);
+        }
+
+
+        //添加边
+        graph.addEdge(0, 1, 1);
+        graph.addEdge(0, 2, 1);
+        graph.addEdge(1, 2, 1);
+        graph.addEdge(1, 3, 1);
+        graph.addEdge(1, 4, 1);
+        //graph.dfs();
+        graph.bfs();
+    }
 }
