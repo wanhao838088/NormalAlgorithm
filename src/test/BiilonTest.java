@@ -45,15 +45,10 @@ public class BiilonTest {
     }
 
     private static void compare(int[] arr,int i){
-        for (int j = arr.length-1; j >0 ; j--) {
-            if (i<arr[j]){
-                arr[j] = i;
-                //始终保持升序
-                Arrays.sort(arr);
-                break;
-            }else {
-                break;
-            }
+        if (i<arr[9]){
+            arr[9] = i;
+            //始终保持升序
+            Arrays.sort(arr);
         }
     }
 
