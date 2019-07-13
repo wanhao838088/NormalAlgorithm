@@ -1,9 +1,5 @@
 package heap;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created by LiuLiHao on 2019/5/14 0014 下午 05:59
  * @author : LiuLiHao
@@ -18,13 +14,23 @@ public class MaxHeap<T extends Comparable> {
      */
     private static final int PARENT_CODE = 2;
 
+    /**
+     * 元素个数
+     */
     private int count;
-    private List<T> data;
+    /**
+     * 数据
+     */
+    private T[] data;
+    /**
+     * 容量
+     */
+    private int capacity;
 
-    public MaxHeap() {
+    public MaxHeap(int capacity) {
         this.count = 0;
-        data = new ArrayList<T>();
-        data.add(null);
+        data = (T[]) new Comparable[capacity+1];
+        this.capacity = capacity;
     }
 
     /**
@@ -32,14 +38,15 @@ public class MaxHeap<T extends Comparable> {
      * @param arr
      */
     public MaxHeap(T[] arr){
-        data = new ArrayList<T>();
+        data = (T[]) new Comparable[arr.length+1];
+        capacity = arr.length;
         count = arr.length;
-        data.add(null);
+        //赋值
         for (int i = 0; i < arr.length; i++) {
-            data.add(arr[i]);
+            data[i+1] = arr[i];
         }
-        //转换成堆
-        for (int i = count/2; i >=1 ; i--) {
+        //调整成堆
+        for (int i = arr.length/2; i >=1 ; i--) {
             shiftDown(i);
         }
     }
@@ -49,41 +56,46 @@ public class MaxHeap<T extends Comparable> {
      * @param t 元素
      */
     public void insert(T t){
-        data.add(t);
+        assert count+1<=capacity;
+        data[count+1] = t;
+
         count++;
         shiftUp(count);
     }
 
-    public T get(){
-        if (count<=0){
-            return null;
-        }
-        //取出最大的元素
-        T t = data.get(1);
+    /**
+     * 获取最大元素
+     * @return
+     */
+    public T removeMax(){
+        assert count>=1;
 
-        //交换位置
-        swap(1,count);
+        T max = data[1];
+        //交换元素
+        swap(count,1);
+
         count--;
+
+        //调整堆
         shiftDown(1);
-        return t;
+
+        return max;
     }
 
     /**
-     * 保证堆一直为最大堆
+     * 向下调整
      * @param index
      */
-    private void shiftDown(int index){
-
-        //左节点 = 当前节点 *2
-        //右节点 = 当前节点 *2 + 1
-        while (index*2 <=count){
+    private void shiftDown(int index) {
+        while (index*PARENT_CODE<=count){
+            //判断是否有右节点
             int j = index*2;
-            //有右节点
-            if (j+1<=count && data.get(j+1).compareTo(data.get(j))>0){
-                j+=1;
+            if (j+1<=count && data[j+1].compareTo(data[j])>0){
+                //有右节点 并且比左大
+                j++;
             }
-            //如果父节点比 子节点还大 那么不需要动
-            if (data.get(index).compareTo(data.get(j))>0){
+            if (data[index].compareTo(data[j])>0){
+                //不需要交换
                 break;
             }
             swap(index,j);
@@ -92,27 +104,28 @@ public class MaxHeap<T extends Comparable> {
     }
 
     /**
-     * 保持堆为最大堆
+     * 向上调整
      * @param index
      */
     private void shiftUp(int index) {
-        while (index>1 && data.get(index/PARENT_CODE).compareTo(data.get(index))<0){
-            //交换位置
-            swap(index,index/2);
+        while (index>1 &&  data[index/2].compareTo(data[index])<0){
+            //调整
+            swap(index/2,index);
             index/=2;
         }
     }
 
     /**
-     * 交换元素
+     * 交换
      * @param i
      * @param j
      */
-    private void swap(int i,int j){
-        T temp = data.get(i);
-        data.set(i,data.get(j));
-        data.set(j,temp);
+    private void swap(int i, int j) {
+        T temp = data[i];
+        data[i] = data[j];
+        data[j] = temp;
     }
+
 
     /**
      * 堆大小
@@ -130,8 +143,4 @@ public class MaxHeap<T extends Comparable> {
         return count==0;
     }
 
-    public void print(){
-        Object[] objects = data.toArray();
-        System.out.println(Arrays.toString(objects));
-    }
 }
