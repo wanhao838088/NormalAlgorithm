@@ -1,5 +1,7 @@
 package graph;
 
+import graph.intf.Graph;
+
 import java.util.Vector;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Vector;
  * @author : LiuLiHao
  * 描述：稠密图
  */
-public class DenseGraph {
+public class DenseGraph implements Graph {
     /**
      * 点数量
      */
@@ -42,6 +44,7 @@ public class DenseGraph {
      * 返回节点个数
      * @return
      */
+    @Override
     public int V(){ return n;}
 
     /**
@@ -55,7 +58,8 @@ public class DenseGraph {
      * @param i
      * @param j
      */
-    public void addEdge(int i,int j){
+    @Override
+    public void addEdge(int i, int j){
         assert i>=0 && i<n;
         assert j>=0 && j<n;
 
@@ -75,8 +79,24 @@ public class DenseGraph {
      * @param j
      * @return
      */
-    public boolean hasEdge(int i,int j){
+    @Override
+    public boolean hasEdge(int i, int j){
         return data[i][j];
+    }
+
+    @Override
+    public void show() {
+        //打印
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data[i].length; j++) {
+                if (data[i][j]){
+                    System.out.print(1);
+                }else {
+                    System.out.print(0);
+                }
+            }
+            System.out.println();
+        }
     }
 
     /**
@@ -84,6 +104,7 @@ public class DenseGraph {
      * @param index
      * @return
      */
+    @Override
     public Iterable<Integer> iterable(int index){
         assert index>=0 && index<n;
         Vector<Integer> result = new Vector<>();

@@ -1,5 +1,6 @@
-package graph;
+package graph.test;
 
+import graph.SparseGraph;
 import org.junit.jupiter.api.Test;
 
 /**

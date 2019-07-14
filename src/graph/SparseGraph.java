@@ -1,5 +1,7 @@
 package graph;
 
+import graph.intf.Graph;
+
 import java.util.Vector;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Vector;
  * @author : LiuLiHao
  * 描述：稀疏图
  */
-public class SparseGraph {
+public class SparseGraph implements Graph {
     /**
      * 点数量
      */
@@ -41,12 +43,14 @@ public class SparseGraph {
      * 返回节点个数
      * @return
      */
+    @Override
     public int V(){ return n;}
 
     /**
      * 返回边的个数
      * @return
      */
+    @Override
     public int E(){ return m;}
 
     /**
@@ -54,7 +58,8 @@ public class SparseGraph {
      * @param i
      * @param j
      */
-    public void addEdge(int i,int j){
+    @Override
+    public void addEdge(int i, int j){
         assert i>=0 && i<n;
         assert j>=0 && j<n;
 
@@ -75,7 +80,8 @@ public class SparseGraph {
      * @param j
      * @return
      */
-    private boolean hasEdge(int i, int j) {
+    @Override
+    public boolean hasEdge(int i, int j) {
         for (int k = 0; k < data[i].size(); k++) {
             Integer temp = data[i].get(k);
             if (temp==j){
@@ -85,11 +91,23 @@ public class SparseGraph {
         return false;
     }
 
+    @Override
+    public void show() {
+        for (Vector<Integer> vector : data) {
+            for (Integer integer : vector) {
+                System.out.print(integer);
+            }
+            System.out.println();
+        }
+
+    }
+
     /**
      * 迭代操作
      * @param index
      * @return
      */
+    @Override
     public Iterable<Integer> iterable(int index){
         assert index>=0 && index<n;
 
